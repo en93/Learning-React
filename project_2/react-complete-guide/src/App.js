@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person/Person';
+import Radium, { StyleRoot} from 'radium';
 
 class App extends Component {
   state = {
@@ -21,7 +22,7 @@ class App extends Component {
 
   nameChangedHandler = (event, id) => {    
     const persons = [...this.state.persons];
-    const personIndex = persons.findIndex( p => p.id === id );
+    const personIndex = persons.findIndex( p => p.id === id ); 
     const person = {
       ...persons[personIndex],
       name: event.target.value
@@ -38,12 +39,27 @@ class App extends Component {
   render() {
 
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: "inherit",
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
+      ":hover": {
+        backgroundColor: 'lightgreen',
+        color: 'black',
+      } 
     };
+
+    let classes = [];
+    let personsLength = this.state.persons.length;
+    if (personsLength <= 2){
+      classes.push('red');
+    } 
+    if (personsLength <= 1){
+      classes.push('bold');
+    }
+      
 
     let persons = this.state.showPersons ? (
       <div>
@@ -59,15 +75,28 @@ class App extends Component {
       </div>
     ) : null;  
 
+    if (persons) {
+      style.backgroundColor = "red";
+      style[":hover"] = {
+        backgroundColor: "salmon",
+        color: "black",
+      }
+    }
+
     return (
+      <StyleRoot>
       <div className="App">
         <h1>Hi, I'm a react app</h1>   
-        <p>This is working</p>
-        <button style={style} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
+        <p className={classes.join(' ')}>This is working</p>
+        <button 
+          // className={classes}
+          style={style} 
+          onClick={ this.togglePersonsHandler }>Toggle Persons</button>
         {persons}
       </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
