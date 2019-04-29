@@ -4,6 +4,11 @@ import Persons from '../componenets/Persons/Persons';
 import Cockpit from '../componenets/Cockpit/Cockpit'
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log('constructor');
+  }
+
   state = {
     persons : [
       {id: 'daskfjdskaf', name: "Max", age: 28},
@@ -12,6 +17,11 @@ class App extends Component {
     ],
     otherState: "Hello there",
     showPersons: false,
+  }
+
+  static getDerivedStateFromProps(props, state){
+    // console.log('getDerivedStateFromProps', props);
+    return state;
   }
 
   deletePersonHandler = (personIndex) => {
@@ -37,6 +47,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log('render');
     let persons = this.state.showPersons ?
       (
         <Persons 
@@ -58,6 +69,5 @@ class App extends Component {
     
   }
 }
-
 
 export default App;
