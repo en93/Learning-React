@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Person from './Person/Person';
 
-class Persons extends Component {
-
-    // static getDerivedStateFromProp() {
-
-    // }
-
+class Persons extends PureComponent {
     render() {
+        console.log('Persons ran render');
         return this.props.persons.map((person, index) => { 
             return (<Person 
                 key={person.id}
