@@ -3,14 +3,14 @@ import Person from './Person/Person';
 
 class Persons extends PureComponent {
     render() {
-        console.log('Persons ran render');
+        // console.log('Persons ran render');
         return this.props.persons.map((person, index) => { 
-            return (<Person 
+            return <Person 
                 key={person.id}
                 name={person.name} 
                 age={person.age}
                 click={() => this.props.clicked(index)}
-                changed={(event) => this.props.changed(event, person.id)}/>);
+                changed={(event) => this.props.changed(event, person.id)}/>
         });
     }
 };

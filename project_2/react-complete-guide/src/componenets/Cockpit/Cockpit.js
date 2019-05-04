@@ -1,7 +1,13 @@
-import React, {memo} from 'react';
-import classes from './Cockpit.css'
+import React, {useEffect, memo, useRef} from 'react';
+import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
 const cockpit = props => {
+    const toggleBtnRef = useRef(null);
+
+    useEffect( () => {
+        toggleBtnRef.current.click();
+    }, [] );
 
     // useEffect(() => {
     //     const t = setTimeout(() => {
@@ -28,7 +34,13 @@ const cockpit = props => {
           <p className={assignedClasses.join(' ')}>This is working</p>
           <button 
             className={btnClass}
-            onClick={ props.click }>Toggle Persons</button>
+            onClick={ props.click }
+            ref={toggleBtnRef}>
+                Toggle Persons
+            </button>
+            <AuthContext.Consumer>
+                {context => <button onClick={context.login}>Log in</button>}
+            </AuthContext.Consumer>
         </div>
       );
 }
